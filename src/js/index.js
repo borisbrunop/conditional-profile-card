@@ -26,21 +26,74 @@ function render(variables = {}) {
   console.log("These are the current variables: ", variables); //print on the console
   // here we ask the logical questions to make decisions on how to build the html
   // if includeCover==false then we reset the cover code without the <img> tag to make the cover transparent.
+
   let cover = `<div class="cover"><img src="${variables.background}" /></div>`;
   if (variables.includeCover == false) cover = "<div class='cover'></div>";
+
+  let position = variables.socialMediaPosition;
+  if (variables.socialMediaPosition == "right") position = "position-right";
+
+  let developer = variables.role;
+  switch (variables.role) {
+    case "Web Developer":
+      developer = "Web Developer";
+      break;
+    case "Floor Planner":
+      developer = "Floor Planner";
+      break;
+    case "Technical Writter":
+      developer = "Technical Writter";
+      break;
+    default:
+      null;
+  }
+  let ciudad = variables.city;
+  switch (variables.city) {
+    case "Miami":
+      ciudad = "Miami";
+      break;
+    case "Munich":
+      ciudad = "Munich";
+      break;
+    case "Caracas":
+      ciudad = "Caracas";
+      break;
+    case "Toronto":
+      ciudad = "Toronto";
+      break;
+    default:
+      null;
+  }
+  let pais = variables.country;
+  switch (variables.country) {
+    case "USA":
+      pais = ", USA";
+      break;
+    case "Germany":
+      pais = ", Germany";
+      break;
+    case "Venezuela":
+      pais = ", Venezuela";
+      break;
+    case "Canada":
+      pais = ", Canada";
+      break;
+    default:
+      null;
+  }
 
   // reset the website body with the new html output
   document.querySelector("#widget_content").innerHTML = `<div class="widget">
             ${cover}
           <img src="${variables.avatarURL}" class="photo" />
-          <h1>Lucy Boilett</h1>
-          <h2>Web Developer</h2>
-          <h3>Miami, USA</h3>
-          <ul class="position-right">
-            <li><a href="https://twitter.com/alesanchezr"><i class="fa fa-twitter"></i></a></li>
-            <li><a href="https://github.com/alesanchezr"><i class="fa fa-github"></i></a></li>
-            <li><a href="https://linkedin.com/alesanchezr"><i class="fa fa-linkedin"></i></a></li>
-            <li><a href="https://instagram.com/alesanchezr"><i class="fa fa-instagram"></i></a></li>
+          <h1>${variables.name} ${variables.lastname}</h1>
+          <h2>${developer}</h2>
+          <h3>${ciudad} ${pais}</h3>
+          <ul class="${position}">
+            <li><a href="https://twitter.com/${variables.twitter}"><i class="fa fa-twitter"></i></a></li>
+            <li><a href="https://github.com/${variables.github}"><i class="fa fa-github"></i></a></li>
+            <li><a href="https://linkedin.com/${variables.linkedin}"><i class="fa fa-linkedin"></i></a></li>
+            <li><a href="https://instagram.com/${variables.instagram}"><i class="fa fa-instagram"></i></a></li>
           </ul>
         </div>
     `;
@@ -58,17 +111,17 @@ window.onload = function() {
     // this is the url for the profile avatar
     avatarURL: "https://randomuser.me/api/portraits/women/42.jpg",
     // social media bar position (left or right)
-    socialMediaPosition: "position-left",
+    socialMediaPosition: null,
     // social media usernames
-    twitter: null,
-    github: "alesanchezr",
-    linkedin: null,
-    instagram: null,
-    name: null,
-    lastname: null,
-    role: null,
-    country: null,
-    city: null
+    twitter: "",
+    github: "",
+    linkedin: "",
+    instagram: "",
+    name: "",
+    lastname: "",
+    role: "",
+    country: "",
+    city: ""
   };
   render(window.variables); //render the card for the first time
 
